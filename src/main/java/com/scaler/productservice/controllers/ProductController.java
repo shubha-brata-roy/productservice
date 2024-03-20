@@ -1,5 +1,6 @@
 package com.scaler.productservice.controllers;
 
+import com.scaler.productservice.commons.AuthenticationCommons;
 import com.scaler.productservice.dtos.FakeStoreDto;
 import com.scaler.productservice.dtos.FakeStoreDtoToProductConverter;
 import com.scaler.productservice.exceptions.ProductNotFoundException;
@@ -7,6 +8,8 @@ import com.scaler.productservice.models.Product;
 import com.scaler.productservice.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,17 +17,25 @@ import java.util.List;
 @RestController
 @RequestMapping("/products")
 public class ProductController {
-    private ProductService productService;
+    private final ProductService productService;
+    private final AuthenticationCommons authenticationCommons;
 
     @Autowired
-    public ProductController(@Qualifier("selfProductService")
-                                 ProductService productService) {
+    public ProductController(@Qualifier("fakeStoreProductService") ProductService productService,
+                             AuthenticationCommons authenticationCommons) {
         this.productService = productService;
+        this.authenticationCommons = authenticationCommons;
     }
 
     @GetMapping()
-    public List<Product> getAllProducts() {
-        return productService.getAllProducts();
+    public ResponseEntity<List<Product>> getAllProducts() {
+//            @RequestHeader("AuthenticationToken") String token) {
+//
+//        if(authenticationCommons.validateToken(token) == null) {
+//            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+//        }
+
+        return new ResponseEntity<>(productService.getAllProducts(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

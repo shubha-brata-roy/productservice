@@ -15,7 +15,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service("FakeStoreCategoryService")
+@Service("fakeStoreCategoryService")
 public class FakeStoreCategoryService implements CategoryService {
     private RestTemplate restTemplate;
 

@@ -18,7 +18,7 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @Autowired
-    public CategoryController(@Qualifier("SelfCategoryService") CategoryService categoryService) {
+    public CategoryController(@Qualifier("fakeStoreCategoryService") CategoryService categoryService) {
         this.categoryService = categoryService;
     }
 
